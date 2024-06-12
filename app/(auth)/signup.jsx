@@ -11,8 +11,41 @@ import {
 import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useState } from "react";
 
 const Signup = () => {
+
+  const [fullname, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("")
+
+  const handleSubmit = async() =>{
+    if(!fullname || !email || !password){
+      alert('please fill in all the inputs')
+    }
+    try{
+      const api = await fetch('http://localhost:5000/user/register', {
+        method: 'POST',
+        body: JSON.stringify({
+          fullname: fullname,
+          email: email,
+          password: password
+        }),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      });
+      const data = await api.json()
+      if(data){
+        console.log(data);
+      }
+      router.push("search")
+    }
+    catch(err){
+      console.log("the catch error",err)
+    }
+
+  }
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView
@@ -42,6 +75,8 @@ const Signup = () => {
             <View className="flex flex-row items-center justify-between border w-full h-[50px] rounded-md border-third overflow-hidden py-4 pl-4">
               <FontAwesome name="user-o" size={24} color="#b1b6c8" />
               <TextInput
+              value="fullname"
+              onChange={(e) => setFullName(e.target.value)}
                 placeholder="Full Name"
                 className="flex-1 px-3 items-center h-[50px]"
               />
@@ -49,6 +84,8 @@ const Signup = () => {
             <View className="flex flex-row items-center mt-2 justify-between border w-full h-[50px] rounded-md border-third p-4">
               <FontAwesome5 name="phone-alt" size={15} color="#b1b6c8" />
               <TextInput
+                value="password"
+                onChange={(e)=> setPassword(e.target.value)}
                 placeholder="Phone Number"
                 className="flex-1 px-3 items-center h-[50px]"
               />
@@ -60,6 +97,8 @@ const Signup = () => {
                 color="#b1b6c8"
               />
               <TextInput
+                value="email"
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Your Email"
                 className="flex-1 px-3 items-center h-[50px]"
               />
@@ -67,7 +106,7 @@ const Signup = () => {
           </View>
           <View className="flex w-full items-center py-4">
             <CustomButton
-              handlePress={() => router.push("/search")}
+              handlePress={handleSubmit}
               content="Proceed"
             />
           </View>

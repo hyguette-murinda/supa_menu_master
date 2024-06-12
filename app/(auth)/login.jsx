@@ -15,12 +15,13 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const Login = () => {
+  
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView
         contentContainerStyle={{
           height: "100%",
-          marginTop: 160,
+          marginTop: 100,
         }}
       >
         <View className="h-full bg-white w-full rounded-t-[25px] flex items-center px-5 py-6">
