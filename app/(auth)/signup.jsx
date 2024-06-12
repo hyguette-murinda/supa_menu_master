@@ -24,7 +24,7 @@ const Signup = () => {
       alert('please fill in all the inputs')
     }
     try{
-      const api = await fetch('http://localhost:5000/user/register', {
+      const api = await fetch('http://10.5.220.176:5000/api/v1/user/register', {
         method: 'POST',
         body: JSON.stringify({
           fullname: fullname,
@@ -37,7 +37,7 @@ const Signup = () => {
       });
       const data = await api.json()
       if(data){
-        console.log(data);
+        console.log("gotchuuu");
       }
       router.push("search")
     }
@@ -75,8 +75,8 @@ const Signup = () => {
             <View className="flex flex-row items-center justify-between border w-full h-[50px] rounded-md border-third overflow-hidden py-4 pl-4">
               <FontAwesome name="user-o" size={24} color="#b1b6c8" />
               <TextInput
-              value="fullname"
-              onChange={(e) => setFullName(e.target.value)}
+              value={fullname}
+              onChangeText={(e) => setFullName(e)}
                 placeholder="Full Name"
                 className="flex-1 px-3 items-center h-[50px]"
               />
@@ -84,8 +84,8 @@ const Signup = () => {
             <View className="flex flex-row items-center mt-2 justify-between border w-full h-[50px] rounded-md border-third p-4">
               <FontAwesome5 name="phone-alt" size={15} color="#b1b6c8" />
               <TextInput
-                value="password"
-                onChange={(e)=> setPassword(e.target.value)}
+              value={password}
+                onChangeText={(e)=> setPassword(e)}
                 placeholder="Phone Number"
                 className="flex-1 px-3 items-center h-[50px]"
               />
@@ -97,8 +97,8 @@ const Signup = () => {
                 color="#b1b6c8"
               />
               <TextInput
-                value="email"
-                onChange={(e) => setEmail(e.target.value)}
+              value={email}
+                onChangeText={(e) => setEmail(e)}
                 placeholder="Your Email"
                 className="flex-1 px-3 items-center h-[50px]"
               />
