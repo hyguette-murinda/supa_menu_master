@@ -1,5 +1,6 @@
 import CustomButton from "../../components/CustomButton";
 import { router } from "expo-router";
+import * as Yup from 'yup'
 import {
   SafeAreaView,
   ScrollView,
@@ -11,7 +12,9 @@ import {
 import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from '@expo/vector-icons';
 import { useState } from "react";
+import axios from "axios"
 
 const Signup = () => {
 
@@ -20,25 +23,24 @@ const Signup = () => {
   const [password, setPassword] = useState("")
 
   const handleSubmit = async() =>{
+    const validationSchema = Yup.object().shape({
+      fullname: Yup.string().required("Fullname is required"),
+      password: Yup.string().required("Password is required"),
+      email: Yup.string().email().required("Email is required"),
+    })
+
     if(!fullname || !email || !password){
       alert('please fill in all the inputs')
     }
     try{
-      const api = await fetch('http://10.5.220.106:5000/api/v1/user/register', {
-        method: 'POST',
-        body: JSON.stringify({
-          fullname: fullname,
-          email: email,
-          password: password
-        }),
-        headers:{
-          'Content-Type': 'application/json'
-        }
-      });
-      const data = await api.json()
-      if(data){
-        console.log("gotchuuu");
-      }
+      await validationSchema.validate({fullname, email, password})
+      const user = {
+        fullname: fullname,
+        email: email,
+        password: password
+      };
+      const response = await axios.post("http://10.5.220.106:5000/api/v1/user/register", user);
+      console.log(response.data)
       router.push("search")
     }
     catch(err){
@@ -82,11 +84,12 @@ const Signup = () => {
               />
             </View>
             <View className="flex flex-row items-center mt-2 justify-between border w-full h-[50px] rounded-md border-third p-4">
-              <FontAwesome5 name="phone-alt" size={15} color="#b1b6c8" />
+              {/* <FontAwesome5 name="phone-alt" size={15} color="#b1b6c8" /> */}
+              <MaterialIcons name="password" size={15} color="#b1b6c8" />
               <TextInput
               value={password}
                 onChangeText={(e)=> setPassword(e)}
-                placeholder="Phone Number"
+                placeholder=" enter Password"
                 className="flex-1 px-3 items-center h-[50px]"
               />
             </View>
