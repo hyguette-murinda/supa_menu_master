@@ -22,6 +22,12 @@ const RootLayout = () => {
         }}
       ></Stack.Screen>
       <Stack.Screen
+        name="restaurantSearch"
+        options={{
+          headerShown: false,
+        }}
+      ></Stack.Screen>
+      <Stack.Screen
         name="(tabs)"
         options={{
           headerShown: false,

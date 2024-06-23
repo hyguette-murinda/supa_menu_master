@@ -25,11 +25,11 @@ const search = () => {
           <TextInput
             placeholder="Search for your preferred restaurant"
             className="text flex-1 ml-4 items-center h-[50px]"
-            onFocus={() => router.push("/menu")}
+            onFocus={() => router.push("/restaurantSearch")}
           />
         </View>
         <View className="bg-white rounded-md mt-6 w-full h-[370px] flex-col items-center py-20">
-          <TouchableWithoutFeedback onPress={() => router.push("/menu")}>
+          <TouchableWithoutFeedback onPress={() => router.push("restaurantSearch")}>
             <View className="flex-col items-center justify-center">
               <MaterialCommunityIcons
                 name="qrcode-scan"
