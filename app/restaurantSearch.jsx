@@ -10,7 +10,7 @@ function restaurantSearch() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    axios.get('http://10.5.220.106:5000/api/v1/restaurant/all')
+    axios.get('http://10.11.74.97:5000/api/v1/restaurant/all')
       .then(response => {
         if (response.data && response.data.data) {
           setRestaurants(response.data.data);
@@ -22,6 +22,9 @@ function restaurantSearch() {
         console.error('Error fetching data:', error);
       });
   }, []);
+  const goToMenu = (restaurantId) => {
+    router.push('/menu', { restaurantId });
+  };
 
   const handleSearchChange = (query) => {
     setSearchQuery(query);
@@ -55,7 +58,7 @@ function restaurantSearch() {
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => router.push("/menu")}
+          onPress={() => goToMenu(item._id)}
           >
             <RestaurantCard
               name={item.name}
