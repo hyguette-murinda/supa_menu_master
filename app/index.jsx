@@ -32,7 +32,7 @@ const App = () => {
               </Text>
               <TouchableOpacity
                 onPress={() => router.push("/signup")}
-                className="flex-row p-4 w-full justify-center bg-primary rounded-md"
+                className="flex-row p-4 w-full justify-center bg-[#ff4d4d] rounded-md"
               >
                 <Text className="text-white font-bold">Continue</Text>
               </TouchableOpacity>

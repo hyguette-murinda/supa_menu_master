@@ -24,7 +24,7 @@ const Signup = () => {
       alert('please fill in all the inputs')
     }
     try{
-      const api = await fetch('http://10.5.220.176:5000/api/v1/user/register', {
+      const api = await fetch('http://10.5.220.106:5000/api/v1/user/register', {
         method: 'POST',
         body: JSON.stringify({
           fullname: fullname,
@@ -47,7 +47,7 @@ const Signup = () => {
 
   }
   return (
-    <SafeAreaView className="bg-primary h-full">
+    <SafeAreaView className="bg-[#ff4d4d] h-full">
       <ScrollView
         contentContainerStyle={{
           height: "100%",
@@ -62,7 +62,7 @@ const Signup = () => {
           >
             <Text className="text-4xl font-bold">
               Supa
-              <Text className="text-primary">Menu</Text>
+              <Text className="text-[#ff4d4d]">Menu</Text>
             </Text>
           </TouchableOpacity>
           <View className="flex flex-col items-center gap-2 py-5">
