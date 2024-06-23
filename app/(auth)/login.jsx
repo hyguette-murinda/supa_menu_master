@@ -2,6 +2,7 @@ import CustomButton from "../../components/CustomButton";
 import facebookImg from "../../assets/images/facebook.png";
 import googleImg from "../../assets/images/google.png";
 import { router, Link } from "expo-router";
+import axios from "axios";
 import {
   SafeAreaView,
   ScrollView,
@@ -14,37 +15,37 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import {useState} from 'react'
+import * as Yup from 'yup'
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("")
-  const handleLogin = async () => {
+
+  const handleLogin = async() =>{
+    const validationSchema = Yup.object().shape({
+      password: Yup.string().required("Password is required"),
+      email: Yup.string().email().required("Email is required"),
+    })
+
     if(!email || !password){
-      alert('Please fill all fields')
-      return
+      alert('please fill in all the inputs')
     }
     try{
-      const api = await fetch('http://10.5.220.176:5000/api/v1/auth/login', {
-        method: 'POST',
-        body: JSON.stringify({
-          email: email,
-          password: password
-        }),
-        headers:{
-          'Content-Type': 'application/json'
-        }
-      });
-      const data = await api.json()
-      if(data){
-        console.log(data);
-      }
+      await validationSchema.validate({email, password})
+      const user = {
+        email: email,
+        password: password
+      };
+      const response = await axios.post("http://10.5.220.106:5000/api/v1/auth/login", user);
+      console.log(response.data)
       router.push("search")
     }
     catch(err){
       console.log("the catch error",err)
     }
+
   }
   return (
-    <SafeAreaView className="bg-primary h-full">
+    <SafeAreaView className="bg-[#ff4d4d] h-full">
       <ScrollView
         contentContainerStyle={{
           height: "100%",
@@ -59,7 +60,7 @@ const Login = () => {
           >
             <Text className="text-4xl font-bold">
               Supa
-              <Text className="text-primary">Menu</Text>
+              <Text className="text-[#ff4d4d]">Menu</Text>
             </Text>
           </TouchableOpacity>
           <View className="flex flex-col items-center gap-2 py-5">
@@ -94,7 +95,7 @@ const Login = () => {
           </View>
           <View className="flex w-full items-center py-4">
             <CustomButton
-              handlePress={()=> router.push('search')}
+              handlePress={handleLogin}
               content="Sign In"
             />
           </View>
