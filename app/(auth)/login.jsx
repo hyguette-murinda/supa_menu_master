@@ -95,7 +95,7 @@ const Login = () => {
           </View>
           <View className="flex w-full items-center py-4">
             <CustomButton
-              handlePress={handleLogin}
+              handlePress={()=> router.push("search")}
               content="Sign In"
             />
           </View>

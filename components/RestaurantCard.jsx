@@ -15,17 +15,17 @@ const RestaurantCard = ({ name, location, imageSource }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '80%',
+    width: '90%',
     height: 100,
     flexDirection: 'row',
     borderRadius: 10,
-    backgroundColor: 'white',
-    marginBottom: 20,
-    marginLeft:20,
-    elevation: 5,
+    backgroundColor: '#e6e6e6',
+    marginBottom: 15,
+    marginLeft:15,
+    elevation: 2,
   },
   image: {
-    width: '40%',
+    width: '30%',
     height: '100%',
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
@@ -36,12 +36,13 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     marginBottom: 5,
     color: 'black',
   },
   location: {
     fontSize: 14,
+    color:"gray"
   },
 });
 
