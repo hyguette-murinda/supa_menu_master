@@ -13,9 +13,36 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-
+import {useState} from 'react'
 const Login = () => {
-  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("")
+  const handleLogin = async () => {
+    if(!email || !password){
+      alert('Please fill all fields')
+      return
+    }
+    try{
+      const api = await fetch('http://10.5.220.176:5000/api/v1/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({
+          email: email,
+          password: password
+        }),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      });
+      const data = await api.json()
+      if(data){
+        console.log(data);
+      }
+      router.push("search")
+    }
+    catch(err){
+      console.log("the catch error",err)
+    }
+  }
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView
@@ -49,6 +76,8 @@ const Login = () => {
                 color="#b1b6c8"
               />
               <TextInput
+              value={email}
+                onChangeText={(e)=> setEmail(e)}
                 placeholder="Your Email"
                 className="flex-1 px-3 items-center h-[50px]"
               />
@@ -56,6 +85,8 @@ const Login = () => {
             <View className="flex flex-row items-center mt-2 justify-between border w-full h-[50px] rounded-md border-third overflow-hidden py-4 pl-4">
               <MaterialIcons name="lock-outline" size={17} color="#b1b6c8" />
               <TextInput
+                value={password}
+                onChangeText={(e)=> setPassword(e)}
                 placeholder="Password"
                 className="flex-1 px-3 items-center h-[50px]"
               />
@@ -63,7 +94,7 @@ const Login = () => {
           </View>
           <View className="flex w-full items-center py-4">
             <CustomButton
-              handlePress={() => router.push("/search")}
+              handlePress={()=> router.push('search')}
               content="Sign In"
             />
           </View>
